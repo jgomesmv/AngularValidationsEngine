@@ -1,0 +1,18 @@
+{
+  "HOME": {
+    "TITLE": "Registre",
+    "SELECT_LANGUAGE": "Changer la langue",
+    "FIRST_NAME": "Prénom",
+    "LAST_NAME": "Nom de famille",
+    "EMAIL": "Email",
+    "PASSWORD": "Mot de passe",
+    "SUBMIT_BUTTON": "Soumettre",
+    "CANCEL_BUTTON": "Oblitérer"
+  },
+  "VALIDATIONS": {
+    "DEFAULT": "est invalide.",
+    "REQUIRED": "est requis.",
+    "MAX_LENGTH": "ne peut avoir que {{length}} caractères au maximum.",
+    "MIN_LENGTH": "doit comprendre au moins {{length}} caractères."
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "HOME": {
+    "TITLE": "Register",
+    "SELECT_LANGUAGE": "Change language",
+    "FIRST_NAME": "First Name",
+    "LAST_NAME": "Last Name",
+    "EMAIL": "Email",
+    "PASSWORD": "Password",
+    "SUBMIT_BUTTON": "Submit",
+    "CANCEL_BUTTON": "Cancel"
+  },
+  "VALIDATIONS": {
+    "DEFAULT": "is invalid.",
+    "REQUIRED": "is required.",
+    "MAX_LENGTH": "can only have {{length}} characters at most.",
+    "MIN_LENGTH": "must consist of at least {{length}} characters."
+  }
+}

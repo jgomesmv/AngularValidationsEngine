@@ -1,0 +1,41 @@
+<div class="m-5">
+  <label>
+    {{ "HOME.SELECT_LANGUAGE" | translate }}
+    <select #langSelect (change)="translateService.use(langSelect.value)">
+      <option
+        *ngFor="let lang of translateService.getLangs()"
+        [value]="lang"
+        [selected]="lang === translateService.currentLang"
+        >{{ lang }}</option
+      >
+    </select>
+  </label>
+  <h2>{{ "HOME.TITLE" | translate }}</h2>
+  <form [formGroup]="registerFormGroup">
+    <div class="form-group">
+      <label for="firstName">{{ "HOME.FIRST_NAME" | translate }}</label>
+      <input type="text" class="form-control" formControlName="firstName" [label]="'HOME.FIRST_NAME' | translate" />
+    </div>
+    <div class="form-group">
+      <label for="lastName">{{ "HOME.LAST_NAME" | translate }}</label>
+      <input type="text" class="form-control" formControlName="lastName"
+      [label]="'HOME.LAST_NAME' | translate" />
+    </div>
+    <div class="form-group">
+      <label for="email">{{ "HOME.EMAIL" | translate }}</label>
+      <input type="text" class="form-control" formControlName="email"
+      [label]="'HOME.EMAIL' | translate" />
+    </div>
+    <div class="form-group">
+      <label for="password">{{ "HOME.PASSWORD" | translate }}</label>
+      <input type="password" class="form-control" formControlName="password"
+      [label]="'HOME.PASSWORD' | translate" />
+    </div>
+    <div class="form-group">
+      <button class="btn btn-primary">
+        {{ "HOME.SUBMIT_BUTTON" | translate }}
+      </button>
+      <a class="btn btn-link">{{ "HOME.CANCEL_BUTTON" | translate }}</a>
+    </div>
+  </form>
+</div>

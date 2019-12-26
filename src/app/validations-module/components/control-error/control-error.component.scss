@@ -1,0 +1,17 @@
+.c-controlError {
+  &:host {
+    position: relative;
+  }
+
+  &__errorMessage {
+    margin: 0;
+    color: #c70042;
+    word-break: break-word;
+    font-weight: 400;
+    font-size: 13px;
+  }
+
+  &--hidden {
+    display: none;
+  }
+}
