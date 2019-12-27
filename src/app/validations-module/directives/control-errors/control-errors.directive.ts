@@ -7,7 +7,8 @@ import {
   Input,
   OnInit,
   Optional,
-  ViewContainerRef
+  ViewContainerRef,
+  OnDestroy
 } from "@angular/core";
 import { EMPTY, Observable, Subject, fromEvent, merge } from "rxjs";
 
@@ -24,7 +25,7 @@ import { TranslateService } from "@ngx-translate/core";
 @Directive({
   selector: "[formControl], [formControlName]"
 })
-export class ControlErrorsDirective implements OnInit {
+export class ControlErrorsDirective implements OnInit, OnDestroy {
   @Input() public label = "";
 
   public controlErrorComponentRef: ComponentRef<ControlErrorComponent>;
@@ -41,7 +42,7 @@ export class ControlErrorsDirective implements OnInit {
     private controlErrorContainerDirective: ControlErrorContainerDirective,
     @Optional() private formSubmitDirective: FormSubmitDirective,
     private directiveControl: NgControl,
-    public translateService: TranslateService
+    private translateService: TranslateService
   ) {
     this.setupEvents();
     this.setupControlErrorContainer();
@@ -69,6 +70,10 @@ export class ControlErrorsDirective implements OnInit {
           this.setError(null);
         }
       });
+  }
+
+  public ngOnDestroy() {
+    this.destroySubject.complete();
   }
 
   private setError(error: DefaultError): void {
