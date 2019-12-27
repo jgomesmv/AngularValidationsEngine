@@ -53,8 +53,7 @@ export class ControlErrorsDirective implements OnInit {
       this.control.valueChanges,
       this.submitObservableEvent,
       this.control.statusChanges
-    )
-      .pipe(takeUntil(this.destroySubject))
+    ).pipe(takeUntil(this.destroySubject))
       .subscribe(() => {
         const controlErrors = this.control.errors;
         if (controlErrors) {
@@ -72,7 +71,7 @@ export class ControlErrorsDirective implements OnInit {
       });
   }
 
-  public setError(error: DefaultError): void {
+  private setError(error: DefaultError): void {
     let errorText = null;
     if (error) {
       errorText = this.translateService.instant(
@@ -99,12 +98,12 @@ export class ControlErrorsDirective implements OnInit {
   }
 
   private setupEvents(): void {
-    // Event when input is touched
+    // Input is touched event
     this.touchObservableEvent = fromEvent(
       this.viewContainerRef.element.nativeElement,
       "blur"
     );
-    // Event when form is submited
+    // Form is submit event
     this.submitObservableEvent = this.formSubmitDirective
       ? this.formSubmitDirective.submitObservableEvent
       : EMPTY;
@@ -112,7 +111,7 @@ export class ControlErrorsDirective implements OnInit {
 
   private setupControlErrorContainer(): void {
     // Render error component as a sibling of the input tag
-    // or as part of a error container element using the controlErrorContainer attribute
+    // or as sibling of container element using the controlErrorContainer attribute
     this.controlViewContainerRef = this.controlErrorContainerDirective
       ? this.controlErrorContainerDirective.viewContainerRef
       : this.viewContainerRef;

@@ -1,11 +1,11 @@
 <div class="m-5">
   <label>
     {{ "HOME.SELECT_LANGUAGE" | translate }}
-    <select #langSelect (change)="translateService.use(langSelect.value)">
+    <select (change)="onLanguageChange($event)">
       <option
-        *ngFor="let lang of translateService.getLangs()"
+        *ngFor="let lang of getLanguages()"
         [value]="lang"
-        [selected]="lang === translateService.currentLang"
+        [selected]="lang === getCurrentLanguage()"
         >{{ lang }}</option
       >
     </select>

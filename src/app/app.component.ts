@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
 
   public constructor(
     private formBuilder: RxFormBuilder,
-    public translateService: TranslateService
+    private translateService: TranslateService
   ) {
     this.setupTranslations();
   }
@@ -23,6 +23,18 @@ export class AppComponent implements OnInit {
     this.registerFormGroup = this.formBuilder.formGroup(
       this.register
     ) as RxFormGroup;
+  }
+
+  public onLanguageChange({target}): void {
+    this.translateService.use(target.value);
+  }
+
+  public getLanguages(): string[] {
+    return this.translateService.getLangs();
+  }
+
+  public getCurrentLanguage(): string {
+    return this.translateService.currentLang;
   }
 
   private setupTranslations() {
