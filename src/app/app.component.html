@@ -11,25 +11,42 @@
     </select>
   </label>
   <h2>{{ "HOME.TITLE" | translate }}</h2>
-  <form [formGroup]="registerFormGroup">
+  <form [formGroup]="registerFormGroup" (ngSubmit)="onSubmit()">
     <div class="form-group">
       <label for="firstName">{{ "HOME.FIRST_NAME" | translate }}</label>
-      <input type="text" class="form-control" formControlName="firstName" [label]="'HOME.FIRST_NAME' | translate" />
+      <input
+        type="text"
+        class="form-control"
+        formControlName="firstName"
+        [fieldNameTranslation]="'HOME.FIRST_NAME'"
+      />
     </div>
     <div class="form-group">
       <label for="lastName">{{ "HOME.LAST_NAME" | translate }}</label>
-      <input type="text" class="form-control" formControlName="lastName"
-      [label]="'HOME.LAST_NAME' | translate" />
+      <input
+        type="text"
+        class="form-control"
+        formControlName="lastName"
+        [fieldNameTranslation]="'HOME.LAST_NAME'"
+      />
     </div>
     <div class="form-group">
       <label for="email">{{ "HOME.EMAIL" | translate }}</label>
-      <input type="text" class="form-control" formControlName="email"
-      [label]="'HOME.EMAIL' | translate" />
+      <input
+        type="text"
+        class="form-control"
+        formControlName="email"
+        [fieldNameTranslation]="'HOME.EMAIL'"
+      />
     </div>
     <div class="form-group">
       <label for="password">{{ "HOME.PASSWORD" | translate }}</label>
-      <input type="password" class="form-control" formControlName="password"
-      [label]="'HOME.PASSWORD' | translate" />
+      <input
+        type="password"
+        class="form-control"
+        formControlName="password"
+        [fieldNameTranslation]="'HOME.PASSWORD'"
+      />
     </div>
     <div class="form-group">
       <button class="btn btn-primary">

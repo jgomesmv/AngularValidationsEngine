@@ -13,6 +13,8 @@
     "DEFAULT": "is invalid.",
     "REQUIRED": "is required.",
     "MAX_LENGTH": "can only have {{length}} characters at most.",
-    "MIN_LENGTH": "must consist of at least {{length}} characters."
+    "MIN_LENGTH": "must consist of at least {{length}} characters.",
+    "EMAIL_FORMAT": "Invalid email address: example@example.com",
+    "EMAIL_FORBIDDEN_WORDS": "Email contains forbidden words: {{values}}"
   }
 }
