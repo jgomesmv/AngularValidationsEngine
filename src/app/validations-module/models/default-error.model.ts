@@ -1,9 +1,7 @@
 export class DefaultError {
-  public translation: string;
-  public translationValues: object;
+  public error: any;
 
-  constructor(translation: string, values: object) {
-    this.translation = translation;
-    this.translationValues = values;
+  constructor(data: any) {
+    Object.assign(this, data);
   }
 }

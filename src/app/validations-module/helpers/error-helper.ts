@@ -1,22 +1,22 @@
-import { CustomError } from "../models/custom-error.model";
 import { DefaultError } from "../models/default-error.model";
+import { AutoError } from "../models/auto-error.model";
 import { ValidationErrors } from "@angular/forms";
 
 export class ErrorHelper {
-  private static defaultErrors = {
+  private static autoErrors = {
     required: (errorData) => {
       const translation = ErrorHelper.getTranslation(errorData, "VALIDATIONS.REQUIRED");
-      return new DefaultError(translation, null);
+      return new AutoError(translation, null);
     },
     minLength: (errorData) => {
       const translation = ErrorHelper.getTranslation(errorData, "VALIDATIONS.MIN_LENGTH");
       const translationValues = ErrorHelper.getTranslationValues(errorData);
-      return new DefaultError(translation, translationValues);
+      return new AutoError(translation, translationValues);
     },
     maxLength: (errorData) => {
       const translation = ErrorHelper.getTranslation(errorData, "VALIDATIONS.MAX_LENGTH");
       const translationValues = ErrorHelper.getTranslationValues(errorData);
-      return new DefaultError(translation, translationValues);
+      return new AutoError(translation, translationValues);
     }
   };
 
@@ -31,11 +31,11 @@ export class ErrorHelper {
     return null;
   }
 
-  public static getError(validationErrors: ValidationErrors): DefaultError | CustomError {
+  public static getError(validationErrors: ValidationErrors): AutoError | DefaultError {
     const firstKey = Object.keys(validationErrors)[0];
-    if (ErrorHelper.defaultErrors[firstKey]) {
-      return ErrorHelper.defaultErrors[firstKey].call(this, validationErrors[firstKey]);
-    } else if (validationErrors[firstKey] instanceof DefaultError || validationErrors[firstKey] instanceof CustomError) {
+    if (ErrorHelper.autoErrors[firstKey]) {
+      return ErrorHelper.autoErrors[firstKey].call(this, validationErrors[firstKey]);
+    } else if (validationErrors[firstKey] instanceof AutoError || validationErrors[firstKey] instanceof DefaultError) {
       return validationErrors[firstKey];
     } else {
       throw Error("Validation error without default or custom message set!");

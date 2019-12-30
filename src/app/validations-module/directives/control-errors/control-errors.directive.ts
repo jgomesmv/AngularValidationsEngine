@@ -16,7 +16,7 @@ import { ControlErrorComponent } from "../../components/control-error/control-er
 import { ControlErrorContainerDirective } from "../control-error-container/control-error-container.directive";
 import { ErrorHelper } from "../../helpers/error-helper";
 import { FormSubmitDirective } from "../form-submit/form-submit.directive";
-import { DefaultError } from "../../models/default-error.model";
+import { AutoError } from "../../models/auto-error.model";
 import { takeUntil } from "rxjs/operators";
 import { TranslateService } from "@ngx-translate/core";
 
@@ -62,7 +62,7 @@ export class ControlErrorsDirective implements OnInit, OnDestroy {
 
           // Only default errors must be handled
           // Custom errors are handled by custom validatiors
-          if (error instanceof DefaultError) {
+          if (error instanceof AutoError) {
             this.setError(error);
             this.control.markAsTouched();
           }
@@ -76,7 +76,7 @@ export class ControlErrorsDirective implements OnInit, OnDestroy {
     this.destroySubject.complete();
   }
 
-  private setError(error: DefaultError): void {
+  private setError(error: AutoError): void {
     let errorText = null;
     if (error) {
       errorText = this.translateService.instant(
@@ -115,7 +115,7 @@ export class ControlErrorsDirective implements OnInit, OnDestroy {
   }
 
   private setupControlErrorContainer(): void {
-    // Render error component as a sibling of the input tag
+    // Render error component as a sibling of the form control element
     // or as sibling of container element using the controlErrorContainer attribute
     this.controlViewContainerRef = this.controlErrorContainerDirective
       ? this.controlErrorContainerDirective.viewContainerRef
