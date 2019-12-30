@@ -63,6 +63,10 @@ export class AppComponent implements OnInit {
     }
   }
 
+  public onCancel(): void {
+    this.registerFormGroup.resetForm();
+  }
+
   private setupTranslations() {
     this.translateService.addLangs(["en", "fr"]);
     this.translateService.setDefaultLang("en");

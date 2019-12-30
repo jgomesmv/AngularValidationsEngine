@@ -52,7 +52,9 @@
       <button class="btn btn-primary">
         {{ "HOME.SUBMIT_BUTTON" | translate }}
       </button>
-      <a class="btn btn-link">{{ "HOME.CANCEL_BUTTON" | translate }}</a>
+      <a class="btn btn-link" (click)="onCancel()">{{
+        "HOME.CANCEL_BUTTON" | translate
+      }}</a>
     </div>
   </form>
 </div>
