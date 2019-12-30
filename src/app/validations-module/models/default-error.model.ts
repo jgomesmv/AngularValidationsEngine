@@ -1,5 +1,6 @@
 export class DefaultError {
-  public error: any;
+  public errorTranslation: string;
+  public values: object;
 
   constructor(data: any) {
     Object.assign(this, data);

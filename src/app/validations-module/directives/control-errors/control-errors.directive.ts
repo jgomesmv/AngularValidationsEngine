@@ -3,7 +3,6 @@ import {
   ComponentFactoryResolver,
   ComponentRef,
   Directive,
-  Inject,
   Input,
   OnInit,
   Optional,
@@ -12,13 +11,12 @@ import {
 } from "@angular/core";
 import { EMPTY, Observable, Subject, fromEvent, merge } from "rxjs";
 
-import { ControlErrorComponent } from "../../components/control-error/control-error.component";
+import { AutoErrorComponent } from "../../components/auto-error/auto-error.component";
 import { ControlErrorContainerDirective } from "../control-error-container/control-error-container.directive";
 import { ErrorHelper } from "../../helpers/error-helper";
 import { FormSubmitDirective } from "../form-submit/form-submit.directive";
 import { AutoError } from "../../models/auto-error.model";
 import { takeUntil } from "rxjs/operators";
-import { TranslateService } from "@ngx-translate/core";
 
 // This directive will manage the user interaction with
 // a formControl instance
@@ -26,9 +24,9 @@ import { TranslateService } from "@ngx-translate/core";
   selector: "[formControl], [formControlName]"
 })
 export class ControlErrorsDirective implements OnInit, OnDestroy {
-  @Input() public label = "";
+  @Input() public fieldNameTranslation = "";
 
-  public controlErrorComponentRef: ComponentRef<ControlErrorComponent>;
+  public autoErrorComponentRef: ComponentRef<AutoErrorComponent>;
   public controlViewContainerRef: ViewContainerRef;
 
   public touchObservableEvent: Observable<Event>;
@@ -41,8 +39,7 @@ export class ControlErrorsDirective implements OnInit, OnDestroy {
     @Optional()
     private controlErrorContainerDirective: ControlErrorContainerDirective,
     @Optional() private formSubmitDirective: FormSubmitDirective,
-    private directiveControl: NgControl,
-    private translateService: TranslateService
+    private directiveControl: NgControl
   ) {
     this.setupEvents();
     this.setupControlErrorContainer();
@@ -56,18 +53,22 @@ export class ControlErrorsDirective implements OnInit, OnDestroy {
       this.control.statusChanges
     ).pipe(takeUntil(this.destroySubject))
       .subscribe(() => {
+        if (this.autoErrorComponentRef) {
+          this.setAutoError(null);
+        }
+
         const controlErrors = this.control.errors;
         if (controlErrors) {
-          const error = ErrorHelper.getError(controlErrors);
+          const error = ErrorHelper.getError(
+            this.fieldNameTranslation,
+            controlErrors
+          );
 
-          // Only default errors must be handled
-          // Custom errors are handled by custom validatiors
+          // Only auto errors must be handled
           if (error instanceof AutoError) {
-            this.setError(error);
+            this.setAutoError(error);
             this.control.markAsTouched();
           }
-        } else if (this.controlErrorComponentRef) {
-          this.setError(null);
         }
       });
   }
@@ -76,26 +77,17 @@ export class ControlErrorsDirective implements OnInit, OnDestroy {
     this.destroySubject.complete();
   }
 
-  private setError(error: AutoError): void {
-    let errorText = null;
-    if (error) {
-      errorText = this.translateService.instant(
-        error.translation,
-        error.translationValues
-      );
-      errorText = this.label ? `${this.label} ${errorText}` : errorText;
-    }
-
-    if (!this.controlErrorComponentRef) {
+  private setAutoError(autoError: AutoError): void {
+    if (!this.autoErrorComponentRef) {
       const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
-        ControlErrorComponent
+        AutoErrorComponent
       );
-      this.controlErrorComponentRef = this.controlViewContainerRef.createComponent(
+      this.autoErrorComponentRef = this.controlViewContainerRef.createComponent(
         componentFactory
       );
     }
 
-    this.controlErrorComponentRef.instance.text = errorText;
+    this.autoErrorComponentRef.instance.autoError = autoError;
   }
 
   private get control(): AbstractControl {
@@ -103,12 +95,12 @@ export class ControlErrorsDirective implements OnInit, OnDestroy {
   }
 
   private setupEvents(): void {
-    // Input is touched event
+    // Input touched event
     this.touchObservableEvent = fromEvent(
       this.viewContainerRef.element.nativeElement,
       "blur"
     );
-    // Form is submit event
+    // Form submit event
     this.submitObservableEvent = this.formSubmitDirective
       ? this.formSubmitDirective.submitObservableEvent
       : EMPTY;

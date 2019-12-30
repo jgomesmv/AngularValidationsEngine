@@ -1,0 +1,6 @@
+<div [ngClass]="{ 'c-autoError--hidden': hide }">
+  <p *ngIf="autoError" class="c-autoError__errorMessage">
+    {{ autoError.fieldNameTranslation | translate }}
+    {{ autoError.errorTranslation | translate: autoError.values }}
+  </p>
+</div>

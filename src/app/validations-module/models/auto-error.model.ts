@@ -1,9 +1,15 @@
 export class AutoError {
-  public translation: string;
-  public translationValues: object;
+  public fieldNameTranslation: string;
+  public errorTranslation: string;
+  public values: object;
 
-  constructor(translation: string, values: object) {
-    this.translation = translation;
-    this.translationValues = values;
+  constructor(
+    fieldNameTranslation: string,
+    errorTranslation: string,
+    values: object
+  ) {
+    this.fieldNameTranslation = fieldNameTranslation;
+    this.errorTranslation = errorTranslation;
+    this.values = values;
   }
 }

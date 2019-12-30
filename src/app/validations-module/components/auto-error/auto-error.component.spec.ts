@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { ControlErrorComponent } from "./control-error.component";
+import { AutoErrorComponent } from "./auto-error.component";
 
 describe("ControlErrorComponent", () => {
-  let component: ControlErrorComponent;
-  let fixture: ComponentFixture<ControlErrorComponent>;
+  let component: AutoErrorComponent;
+  let fixture: ComponentFixture<AutoErrorComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ControlErrorComponent ]
+      declarations: [ AutoErrorComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ControlErrorComponent);
+    fixture = TestBed.createComponent(AutoErrorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
