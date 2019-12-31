@@ -57,7 +57,7 @@ export class ErrorHelper {
     ) {
       return validationErrors[firstKey];
     } else {
-      throw Error("Validation error without default or custom message set!");
+      throw Error("Validation error without auto or default message set!");
     }
   }
 }
