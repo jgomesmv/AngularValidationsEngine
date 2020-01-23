@@ -3,7 +3,7 @@
     {{ "HOME.SELECT_LANGUAGE" | translate }}
     <select (change)="onLanguageChange($event)">
       <option
-        *ngFor="let lang of getLanguages()"
+        *ngFor="let lang of languages"
         [value]="lang"
         [selected]="lang === getCurrentLanguage()"
         >{{ lang }}</option

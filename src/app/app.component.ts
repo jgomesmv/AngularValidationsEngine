@@ -11,6 +11,7 @@ import { FormControl } from "@angular/forms";
   styleUrls: ["./app.component.scss"]
 })
 export class AppComponent implements OnInit {
+  public languages: string[];
   public registerFormGroup: RxFormGroup;
   public register: Register = new Register({});
 
@@ -19,6 +20,7 @@ export class AppComponent implements OnInit {
     private translateService: TranslateService
   ) {
     this.setupTranslations();
+    this.getLanguages();
   }
 
   public ngOnInit() {
@@ -42,8 +44,8 @@ export class AppComponent implements OnInit {
     this.translateService.use(target.value);
   }
 
-  public getLanguages(): string[] {
-    return this.translateService.getLangs();
+  public getLanguages(): void {
+    this.languages = this.translateService.getLangs();
   }
 
   public getCurrentLanguage(): string {
